@@ -17,6 +17,7 @@ app.use(session({
 }))
 //end points
 app.post('/auth/register', ctrl.register)
+app.post('/auth/login', ctrl.login)
 
 
 
