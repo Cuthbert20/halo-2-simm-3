@@ -15,6 +15,10 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }))
+//end points
+app.post('/auth/register', ctrl.register)
+
+
 
 massive(CONNECTION_STRING).then(db => {
     
