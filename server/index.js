@@ -6,6 +6,7 @@ const massive = require('massive')
 const session = require('express-session')
 const ctrl = require('./controller.js')
 
+
 app.use(express.json())
 app.use(session({
     secret: SESSION_SECRET,
@@ -18,6 +19,8 @@ app.use(session({
 //end points
 app.post('/auth/register', ctrl.register)
 app.post('/auth/login', ctrl.login)
+
+app.get('/api/posts', ctrl.allPosts)
 
 
 

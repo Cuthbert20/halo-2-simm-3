@@ -23,17 +23,44 @@ RETURNING *;
 --things I need to do/things I need to pass off.
 -- match   &    alter table join statement 
 
-CREATE TABLE posts(
+-- CREATE TABLE posts(
+-- post_id SERIAL PRIMARY KEY,
+-- user_id INT REFERENCES h_users(user_id),
+-- post_title VARCHAR(150),
+-- post_image VARCHAR(600),
+-- post_content VARCHAR(1000)
+-- );
+
+-- INSERT INTO posts(post_title, post_image, post_content)
+-- VALUES
+-- ('Gunslinger Code', 'https://horrornovelreviews.files.wordpress.com/2013/01/darktowergunslinger1.jpg','I do not aim with my eye, He who aims with his eye has forgoteen the face of his father. I aim with my hand.')
+-- RETURNING *;
+
+-- SELECT * FROM posts;
+
+
+CREATE TABLE halo_posts(
 post_id SERIAL PRIMARY KEY,
-user_id INT REFERENCES h_users(user_id),
-post_title VARCHAR(150),
-post_image VARCHAR(600),
-post_content VARCHAR(1000)
+post_title VARCHAR(255),
+post_image VARCHAR(500),
+post_content VARCHAR(255),
+user_id INT,
+FOREIGN KEY (user_id) REFERENCES halo_users (user_id)
 );
 
-INSERT INTO posts(post_title, post_image, post_content)
-VALUES
-('Gunslinger Code', 'https://horrornovelreviews.files.wordpress.com/2013/01/darktowergunslinger1.jpg','I do not aim with my eye, He who aims with his eye has forgoteen the face of his father. I aim with my hand.')
-RETURNING *;
+-- join table
+SELECT
+    u.user_id id_u,
+    u.username username_u,
+    u.user_image image_u,
+    p.post_id  id_p,
+    p.post_title title_p,
+    p.post_image image_p,
+    p.post_content content_p,
+    p.user_id user_id_p
+FROM
+    halo_users u
+INNER JOIN posts p ON u.user_id = p.user_id;
 
-SELECT * FROM posts;
+SELECT * FROM posts
+WHERE post_title = 'Gunslinger Code';

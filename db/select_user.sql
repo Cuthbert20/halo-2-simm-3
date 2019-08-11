@@ -1,5 +1,9 @@
-SELECT username, user_password FROM h_users
+SELECT * FROM h_users
 WHERE
 username = ${username}
 AND
-user_password = ${user_password};
+user_password = ${user_password}
+RETURNING *;
+
+
+-- username, user_password
