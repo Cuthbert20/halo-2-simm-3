@@ -35,11 +35,11 @@ class Auth extends Component {
     login = () => {
         const { username, user_password } = this.state
         axios.post('/auth/login', {username, user_password})
-        axios.get(`http://localhost:4000/api/posts?userpost=${this.state.checked}&search=${this.state.search}&userid=${userId}`)
+        // axios.get(`http://localhost:4000/api/posts?userpost=${this.state.checked}&search=${this.state.search}&userid=${userId}`)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             this.props.displayUser(res.data[0].user_id, res.data[0].username, res.data[0].user_image)
-            console.log(res.data[0])
+            // console.log(res.data[0])
             this.setState({
                 username: res.data[0].username,
                 user_password: res.data[0].username

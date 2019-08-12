@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 class Nav extends Component {
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div>
                 Nav
@@ -22,7 +22,7 @@ class Nav extends Component {
     }
 }
 function mapStateToProps(reduxState){
-    console.log(reduxState)
+    // console.log(reduxState)
     const { username, user_image } = reduxState
     return { username, user_image}
 }

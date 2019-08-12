@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import axios from 'axios'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
     state ={
         searchPost: '',
         checked: true,
@@ -11,7 +13,20 @@ export default class Dashboard extends Component {
             [key]: e.target.value
         })
     }
+    getPosts = () => {
+        const { searchPost, checked, posts } = this.state
+        const { user_id } = this.props
+        axios.get(`/api/posts?userposts=${checked}&search=${searchPost}&userid=${user_id}`)
+        .then(res => {
+            console.log("hit", res.data)
+            this.setState({
+                posts: res.data
+            })
+        })
+    }
+    //axios.get(`http://localhost:4000/api/posts?userpost=${this.state.checked}&search=${this.state.search}&userid=${userId}`)
     render() {
+        console.log(this.props.user_id)
         return (
             <div>
                 Dashbord
@@ -26,3 +41,10 @@ export default class Dashboard extends Component {
         )
     }
 }
+function mapStateToProps(reduxState){
+    console.log(reduxState.user_id)
+    const { user_id } = reduxState
+    return {user_id}
+}
+
+export default connect(mapStateToProps,{})(Dashboard)
