@@ -64,3 +64,8 @@ INNER JOIN posts p ON u.user_id = p.user_id;
 
 SELECT * FROM posts
 WHERE post_title = 'Gunslinger Code';
+
+--creating a new post
+INSERT INTO posts (user_id, post_title, post_image, post_content)
+VALUES
+(2, 'kids', 'https://longreadsblog.files.wordpress.com/2015/05/x0e59pobdtmmcbptzgknl6dlwol.jpg?w=1112', 'Not the best show');

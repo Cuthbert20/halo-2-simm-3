@@ -37,12 +37,12 @@ class Auth extends Component {
         axios.post('/auth/login', {username, user_password})
         // axios.get(`http://localhost:4000/api/posts?userpost=${this.state.checked}&search=${this.state.search}&userid=${userId}`)
         .then(res => {
-            // console.log(res.data)
-            this.props.displayUser(res.data[0].user_id, res.data[0].username, res.data[0].user_image)
+            console.log(res.data)
+            this.props.displayUser(res.data.user_id, res.data.username, res.data.user_image)
             // console.log(res.data[0])
             this.setState({
-                username: res.data[0].username,
-                user_password: res.data[0].username
+                username: res.data.username,
+                user_password: res.data.username
             })
         })
     }
@@ -59,10 +59,10 @@ class Auth extends Component {
         )
     }
 }
-// function mapStateToProps(reduxState){
-//     console.log(reduxState)
-//     const { user_id, username, user_image } = reduxState
-//     return { user_id, username, user_image}
-// }
+function mapStateToProps(reduxState){
+    console.log(reduxState)
+    const { user_id, username, user_image } = reduxState
+    return { user_id, username, user_image}
+}
 
-export default connect(null,{displayUser})(Auth)
+export default connect(mapStateToProps,{displayUser})(Auth)

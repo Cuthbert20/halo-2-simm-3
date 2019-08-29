@@ -42,6 +42,7 @@ class Dashboard extends Component {
         const { user_id } = this.props
         axios.get(`/api/posts?userposts=${checked}&search=${searchPost}&userid=${user_id}`)
         .then(res => {
+            console.log(res.data)
             this.setState({
                 posts: res.data
             })
@@ -67,20 +68,26 @@ class Dashboard extends Component {
         // console.log(this.state.checked)
     }
     //axios.get(`http://localhost:4000/api/posts?userpost=${this.state.checked}&search=${this.state.search}&userid=${userId}`)
+    handleClick = () => {
+        this.props.history.push('/new')
+    }
     render() {
+        const { posts } = this.state
         console.log("State", this.state)
         console.log(this.props.user_id)
+        const allPosts = posts.map(val => {
+            return (
+                <div key={val.post_id} >
+                    <h3>{val.post_title}</h3>
+                    <h5>{val.post_content}</h5>
+                    <img src={val.post_image} alt=""/>
+                </div>
+            )
+        })
         return (
             <div>
                 Dashbord
-                {this.state.posts.map(elm => {
-                    // console.log(elm)
-                    return (
-                        <div key={elm.post_id} >
-                            {elm.post_title}
-                        </div>
-                    )
-                })}
+               
 
                 {/* this is A one line return */}
                 {/* {this.state.posts.map(element=> <div>{element.post_title}</div>)} */}
@@ -97,6 +104,9 @@ class Dashboard extends Component {
                 <button onClick={this.search} >Search</button>
                 <button onClick={this.reset} >Reset</button>
                 <input onChange={this.handleCheckboxChange} value={this.state.checked} type="checkbox"/> My Posts <br/>
+                <br/>
+                <button onClick={this.handleClick} >Form</button>
+                {allPosts}
             </div>
         )
     }

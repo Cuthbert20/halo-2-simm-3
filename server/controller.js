@@ -3,19 +3,32 @@
 //      const db = req.app.get('db')
 module.exports = {
     register: async (req,res) => {
-        console.log(req.body)
+        // console.log(req.body)
         const db = req.app.get('db')
         const { username, user_password } = req.body
         const newUser = await db.add_user({username, user_password})
-
-        res.status(200).send(newUser)
+        // console.log(newUser[0])
+        const user = newUser[0]
+        req.session.user = {
+            user_id: user.user_id,
+            username: user.username,
+            user_image: user.user_image
+        }
+        console.log("session", req.session.user)
+        res.status(200).send(req.session.user)
     },
     login: async (req,res) => {
         const db = req.app.get('db')
         const { username, user_password } = req.body
         const user = await db.select_user({username, user_password})
-
-        res.status(200).send(user)
+        // console.log('user', user)
+        const loggedUser = user[0]
+        req.session.user = {
+            user_id: loggedUser.user_id,
+            username: loggedUser.username,
+            user_image: loggedUser.user_image
+        }
+        res.status(200).send(req.session.user)
     },
     allPosts: async (req,res) => {
         const db = req.app.get('db')
@@ -57,6 +70,14 @@ module.exports = {
     aPost: async (req,res) => {
         const db = req.app.get('db')
         const { id } = req.params
-        const post = await db.select_post()
+        const post = await db.select_post([id])
+        res.status(200).send(post)
+    },
+    newPost: async (req,res) => {
+        const db = req.app.get('db')
+        const { id } = req.params
+        const { post_title, post_image, post_content } = req.body
+        const result = await db.new_post({id, post_title, post_image, post_content})
+        res.status(200).send(result)
     }
 }
