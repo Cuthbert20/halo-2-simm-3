@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
+import { updateUser } from '../../ducks/reducer'
+import { axios } from 'axios'
 
 class Nav extends Component {
+    loggedUser = () => {
+        axios.get('/api/auth/me')
+        .then(res => {
+            console.log(res.data)
+        })
+    }
     render() {
         // console.log(this.props)
         return (
@@ -27,4 +35,4 @@ function mapStateToProps(reduxState){
     return { username, user_image}
 }
 
-export default connect(mapStateToProps,{})(Nav)
+export default connect(mapStateToProps,{updateUser})(Nav)

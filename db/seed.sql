@@ -69,3 +69,7 @@ WHERE post_title = 'Gunslinger Code';
 INSERT INTO posts (user_id, post_title, post_image, post_content)
 VALUES
 (2, 'kids', 'https://longreadsblog.files.wordpress.com/2015/05/x0e59pobdtmmcbptzgknl6dlwol.jpg?w=1112', 'Not the best show');
+
+--select user from h_users table.
+SELECT * FROM h_users
+WHERE user_id = 1;

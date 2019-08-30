@@ -24,7 +24,9 @@ app.get('/api/posts', ctrl.allPosts)
 app.get('/api/apost/:id', ctrl.aPost)
 
 app.post('/api/newpost/:id', ctrl.newPost)
-app.post('/api/auth/logout')
+app.post('/api/auth/logout', ctrl.logout)
+app.get('/api/auth/me', ctrl.displayUser)
+
 
 
 

@@ -7,6 +7,7 @@ const initialState = {
 
 //action types
 const DISPLAY_USER = 'DISPLAY_USER'
+const UPDATE_USER = 'UPDATE_USER'
 
 //action builders
 export function displayUser(user_id, username, user_image){
@@ -14,6 +15,15 @@ export function displayUser(user_id, username, user_image){
         type: DISPLAY_USER,
         payload: {
             user_id,
+            username,
+            user_image
+        }
+    }
+}
+export function updateUser(username, user_image){
+    return {
+        type: UPDATE_USER,
+        payload: {
             username,
             user_image
         }
@@ -27,6 +37,9 @@ export default (state = initialState, action) => {
         case DISPLAY_USER:
             const { username, user_id, user_image } = payload
             return{...state, user_id, username, user_image}
+        case UPDATE_USER:
+            // const { username, user_image } = payload
+            return{...state, username, user_image }
         default:
             return state
     }

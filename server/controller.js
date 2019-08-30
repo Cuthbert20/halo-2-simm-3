@@ -79,5 +79,19 @@ module.exports = {
         const { post_title, post_image, post_content } = req.body
         const result = await db.new_post({id, post_title, post_image, post_content})
         res.status(200).send(result)
+    },
+    logout: async (req,res) => {
+        console.log('User Logged Out')
+        //destory is a method that lives on session and it enables you to destory the users session profile
+        req.session.destroy()
+
+        res.status(200).send({message: 'logged out'})
+    },
+    displayUser: async (req,res) => {
+        const db = req.app.get('db')
+        const { user_id } = req.session.user
+        const loggedUser = await db.select_loggedin_user([user_id])
+
+        res.status(200).send(loggedUser)
     }
 }
