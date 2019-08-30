@@ -28,6 +28,7 @@ module.exports = {
             username: loggedUser.username,
             user_image: loggedUser.user_image
         }
+        console.log('session login', req.session)
         res.status(200).send(req.session.user)
     },
     allPosts: async (req,res) => {
@@ -88,10 +89,13 @@ module.exports = {
         res.status(200).send({message: 'logged out'})
     },
     displayUser: async (req,res) => {
+        console.log('hit display user')
         const db = req.app.get('db')
         const { user_id } = req.session.user
+        console.log("session", req.session.user)
         const loggedUser = await db.select_loggedin_user([user_id])
-
+        console.log("user_id", user_id)
+        console.log("loggedUser", loggedUser)
         res.status(200).send(loggedUser)
     }
 }

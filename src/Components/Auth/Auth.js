@@ -46,6 +46,12 @@ class Auth extends Component {
             })
         })
     }
+    componentWillUnmount(){
+        this.setState({
+            username: '',
+            user_password: ''
+        })
+    }
     render() {
         // console.log(this.state)
         const { username, user_password } = this.state

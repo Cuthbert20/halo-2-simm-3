@@ -2,14 +2,27 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import { updateUser } from '../../ducks/reducer'
-import { axios } from 'axios'
+import axios  from 'axios'
 
 class Nav extends Component {
+    state ={
+        user: []
+    }
+    componentDidMount() {
+        this.loggedUser()
+    }
     loggedUser = () => {
         axios.get('/api/auth/me')
         .then(res => {
-            console.log(res.data)
+            this.setState({
+                user: res.data
+            })
         })
+    }
+    logout = async () => {
+        let res = await axios.post('/api/auth/logout')
+        // console.log(res)
+        this.props.history.push('/')
     }
     render() {
         // console.log(this.props)
@@ -24,7 +37,7 @@ class Nav extends Component {
                 </div>
                 <Link to='/dashboard' ><button>Home</button></Link>
                 <Link to='post/:postid' ><button>New Post</button></Link>
-                <Link to='/' ><button>Logout</button></Link>
+                <button onClick={this.logout} >Logout</button>
             </div>
         )
     }
