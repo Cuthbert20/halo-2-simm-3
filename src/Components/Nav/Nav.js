@@ -22,6 +22,7 @@ class Nav extends Component {
     logout = async () => {
         let res = await axios.post('/api/auth/logout')
         // console.log(res)
+        // console.log(this.props)
         this.props.history.push('/')
     }
     render() {
